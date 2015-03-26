@@ -10,9 +10,12 @@ ifndef TIZEN_IP
 TIZEN_IP=TizenVTC
 endif
 
-wgtPkg: clean
-	cp -rf ../common-app .
-	zip -r $(PROJECT).wgt config.xml css icon.png index.html js common-app images
+wgtPkg: common
+	zip -r $(PROJECT).wgt config.xml css icon.png index.html js DNA_common images
+
+install_obs:
+	mkdir -p ${DESTDIR}/opt/usr/apps/.preinstallWidgets
+	cp -r DNA_Dashboard.wgt ${DESTDIR}/opt/usr/apps/.preinstallWidgets
 
 config:
 	scp setup/weston.ini root@$(TIZEN_IP):/etc/xdg/weston/
@@ -52,6 +55,12 @@ deploy: wgtPkg
 ifndef OBS
 	scp $(PROJECT).wgt app@$(TIZEN_IP):/home/app
 endif
+
+common: /opt/usr/apps/common-apps
+	cp -r /opt/usr/apps/common-apps DNA_common
+
+dev-common: ../common-app
+	cp -rf ../common-app DNA_common
 
 all:
 	@echo "Nothing to build"
