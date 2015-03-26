@@ -7,8 +7,7 @@ License:    ASL 2.0
 URL:        http://www.tizen.org2
 Source0:    %{name}-%{version}.tar.bz2
 
-#BuildRequires:  common
-BuildRequires:  pkgmgr
+BuildRequires:  common-apps
 BuildRequires:  zip
 BuildRequires:  desktop-file-utils
 
@@ -16,15 +15,20 @@ BuildRequires:  desktop-file-utils
 A proof of concept pure html5 UI
 
 %prep
-%setup -q -n %{name}-%{version}
+%autosetup
 
 %build
 make %{?_smp_mflags} wgtPkg
 
 %install
-make %{?_smp_mflags} wgtPkg
-pkgcmd -i -t wgt -p DNA_Dashboard.wgt
+make %{?_smp_mflags} install_obs "OBS=1" DESTDIR="%{buildroot}"
+
+%post
+su app -c "pkgcmd -i -t wgt -p /opt/usr/apps/.preinstallWidgets/DNA_Dashboard.wgt -q"
+
+%postun
+su app -c "pkgcmd -u -n JLRPOCX033.Dashboard"
 
 %files
 %defattr(-,root,root,-)
-
+/opt/usr/apps/.preinstallWidgets/DNA_Dashboard.wgt
