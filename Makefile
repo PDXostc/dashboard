@@ -11,8 +11,8 @@ TIZEN_IP=TizenVTC
 endif
 
 wgtPkg: clean
-	cp -rf ../DNA_common .
-	zip -r $(PROJECT).wgt config.xml css icon.png index.html js DNA_common images
+	cp -rf ../common-app .
+	zip -r $(PROJECT).wgt config.xml css icon.png index.html js common-app images
 
 config:
 	scp setup/weston.ini root@$(TIZEN_IP):/etc/xdg/weston/
