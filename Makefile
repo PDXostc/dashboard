@@ -1,4 +1,4 @@
-PROJECT = DNA_Dashboard
+PROJECT = JLRPOCX033.Dashboard
 INSTALL_FILES = images js icon.png index.html
 WRT_FILES = DNA_common css icon.png index.html images setup config.xml js manifest.json README.txt
 VERSION := 0.0.1
@@ -15,7 +15,7 @@ wgtPkg: common
 
 install_obs:
 	mkdir -p ${DESTDIR}/opt/usr/apps/.preinstallWidgets
-	cp -r DNA_Dashboard.wgt ${DESTDIR}/opt/usr/apps/.preinstallWidgets
+	cp -r JLRPOCX033.Dashboard.wgt ${DESTDIR}/opt/usr/apps/.preinstallWidgets
 
 config:
 	scp setup/weston.ini root@$(TIZEN_IP):/etc/xdg/weston/
@@ -46,7 +46,7 @@ endif
 install: deploy
 ifndef OBS
 	ssh app@$(TIZEN_IP) "export DBUS_SESSION_BUS_ADDRESS='unix:path=/run/user/5000/dbus/user_bus_socket' && xwalkctl  2>&1 | egrep -e 'Dashboard' | awk '{print $1}' | xargs --no-run-if-empty xwalkctl -u"
-	ssh app@$(TIZEN_IP) "export DBUS_SESSION_BUS_ADDRESS='unix:path=/run/user/5000/dbus/user_bus_socket' && xwalkctl -i /home/app/DNA_Dashboard.wgt"
+	ssh app@$(TIZEN_IP) "export DBUS_SESSION_BUS_ADDRESS='unix:path=/run/user/5000/dbus/user_bus_socket' && xwalkctl -i /home/app/JLRPOCX033.Dashboard.wgt"
 endif
 
 $(PROJECT).wgt : wgt
